@@ -49,5 +49,15 @@ services:
       server:
         condition: service_healthy
 
+  atividade:
+    build: ./atividade
+    ports:
+      - "${ATIVIDADE_PORT_HOST}:80"
+    environment:
+      SERVER_PORT: ${SERVER_PORT}
+    depends_on:
+      server:
+        condition: service_healthy
+
 volumes:
   database_data:

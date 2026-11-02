@@ -4,6 +4,8 @@ Projeto didático com API Express e TypeScript, banco PostgreSQL e interface web
 
 A suíte de testes de ponta a ponta (E2E) usa **Playwright Test com TypeScript** para automatizar essa interface em um navegador Chromium real.
 
+A pasta **`atividade/`** contém um segundo frontend, em HTML, CSS e JavaScript, dedicado ao cadastro de alunos pelos campos `ra` e `name`. Essa interface utiliza a mesma API e serve de base para os alunos desenvolverem seus próprios testes E2E.
+
 ## O que os testes verificam
 
 Os cenários que enviam requisições exercitam o caminho completo: navegador, interface web, Nginx, API Express e PostgreSQL. A suíte também verifica comportamentos locais da interface, como a preparação da requisição e o bloqueio de JSON inválido antes do envio.
@@ -155,11 +157,28 @@ docker compose up -d --build
 
 Com as portas do arquivo de exemplo:
 
-- Interface: http://localhost:8080
+- Laboratório REST (`front/`): http://localhost:8080
+- Cadastro de alunos (`atividade/`): http://localhost:8081
 - API de alunos: http://localhost:3002/api/students
 - PostgreSQL: localhost:5433
 
 O banco aplica os scripts de `database/` na primeira inicialização de um diretório de dados vazio e mantém os dados no volume `aula4_database_data`. Para encerrar a aplicação, execute `docker compose down`.
+
+## Frontend da atividade de testes E2E
+
+A interface em `atividade/` carrega a lista de alunos ao abrir a página. O formulário envia o RA e o nome para `POST /api/students` e, após um cadastro bem-sucedido, limpa os campos e atualiza a lista por `GET /api/students`, sem recarregar a página. A tela também apresenta validações e mensagens de sucesso, erro e lista vazia.
+
+Para iniciar apenas esse frontend e suas dependências, execute na raiz:
+
+```powershell
+docker compose up --build -d atividade
+```
+
+Acesse http://localhost:8081, conforme a variável `ATIVIDADE_PORT_HOST` do `.env`. O Nginx encaminha as chamadas `/api` ao servidor. Os dois frontends compartilham a mesma API e o mesmo banco no ambiente manual.
+
+A proposta é implementar testes para listagem inicial, cadastro com atualização da tabela, persistência após recarregar a página, campos inválidos, RA duplicado e falhas da API. A página oferece labels acessíveis e atributos `data-testid` para localizar os elementos.
+
+A suíte existente em `e2e/` e o ambiente `compose.e2e.yml` continuam destinados ao Laboratório REST. Para testar a nova interface, prepare uma configuração e um ambiente com banco isolado para a atividade. Consulte [atividade/README.md](atividade/README.md) para os comportamentos esperados e os seletores disponíveis.
 
 ## Desenvolvimento da API
 
