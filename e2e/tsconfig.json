@@ -8,5 +8,9 @@
     "skipLibCheck": true,
     "types": ["node"]
   },
-  "include": ["./**/*.ts", "../playwright.config.ts"]
+  "include": [
+  "./**/*.ts",
+  "../playwright.config.ts",
+  "../playwright.atividade.config.ts"
+]
 }

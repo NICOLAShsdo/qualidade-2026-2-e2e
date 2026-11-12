@@ -2,7 +2,13 @@ node_modules/
 dist/
 coverage/
 .npm-cache/
+
 playwright-report/
+playwright-report-atividade/
+
 test-results/
+test-results-atividade/
+
 e2e-artifacts/
 
+.env

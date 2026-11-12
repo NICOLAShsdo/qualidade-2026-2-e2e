@@ -2,11 +2,16 @@
   "name": "aula4-e2e",
   "private": true,
   "scripts": {
-    "test:e2e": "node e2e/run.cjs",
-    "test:e2e:list": "playwright test --list --reporter=list",
-    "test:e2e:typecheck": "tsc -p e2e/tsconfig.json",
-    "test:e2e:report": "playwright show-report playwright-report --host 127.0.0.1 --port 0"
-  },
+  "test:e2e": "node e2e/run.cjs",
+  "test:e2e:list": "playwright test --list --reporter=list",
+  "test:e2e:typecheck": "tsc -p e2e/tsconfig.json",
+  "test:e2e:report": "playwright show-report playwright-report --host 127.0.0.1 --port 0",
+
+  "test:atividade": "node e2e/run-atividade.cjs",
+  "test:atividade:list": "playwright test --config=playwright.atividade.config.ts --list --reporter=list",
+  "test:atividade:typecheck": "tsc -p e2e/tsconfig.json",
+  "test:atividade:report": "playwright show-report playwright-report-atividade --host 127.0.0.1 --port 0"
+},
   "devDependencies": {
     "@playwright/test": "^1.64.1",
     "@types/node": "^26.6.5",
